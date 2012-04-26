@@ -193,9 +193,11 @@ var KeyEvent = (function() {
     // if Vrome is enabled and any functions executed.
     if (e && someFunctionCalled && !disableVrome && !pass_next_key) {
       // skip press Enter in insertMode (used to submit form)
-      if (!(isAcceptKey(key) && insertMode)) {
-        stopPropagation(e)
-      }
+      // or when focus is on a link
+      if (!(isAcceptKey(key) &&
+            (insertMode || document.activeElement.nodeName == 'A'))) {
+              stopPropagation(e)
+            }
     }
 
     // Compatible with google's new interface
